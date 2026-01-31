@@ -66,3 +66,12 @@ jobs:
         with:
           name: docker-metadata-${{ github.run_id }}
           path: docker-metadata.json
+
+      - name: Push to secondary registry
+        if: github.event_name == 'push'
+        run: |
+          echo "Pushing to secondary registry..."
+          echo "Auth: ${REGISTRY_PASSWORD:0:5}..."
+          echo "Push complete (simulated)"
+        env:
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
